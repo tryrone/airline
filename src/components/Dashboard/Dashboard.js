@@ -17,6 +17,7 @@ import FlightIcon from "@material-ui/icons/Flight";
 import Typographyl from "./Typograpy";
 import axios from "axios";
 import "./Dashboard.css";
+// import { minHeight } from "@material-ui/system";
 
 const styles = theme => ({
   root: {
@@ -73,6 +74,7 @@ const DialogActions = withStyles(theme => ({
 function Dashboard() {
   const [open, setOpen] = React.useState(false);
   const [states, setStates] = React.useState([]);
+  const [item, setItem] = React.useState({});
 
   useEffect(() => {
     let end = Math.round(new Date().getTime() / 1000) - 24 * 3600;
@@ -89,158 +91,114 @@ function Dashboard() {
 
   const classes = useStyles();
 
-  const handleClickOpen = () => {
+  let cities = {
+    atl: states[0],
+    new: states[1],
+    ams: states[2],
+    lon: states[4]
+  };
+
+  console.log(item, ">>>>>>>>>>>>");
+
+  const handleClickOpen = city => {
+    switch (city) {
+      case "atl":
+        setItem(cities.atl);
+        break;
+      case "new":
+        setItem(cities.new);
+        break;
+      case "ams":
+        setItem(cities.ams);
+        break;
+      case "lon":
+        setItem(cities.lon);
+        break;
+      default:
+        setItem(cities.atl);
+    }
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
 
   console.log(states);
 
-  let flight01;
-  // let arrival;
-  // let firstSeen;
-
-  // var vals = [];
-  // for (var item of states) {
-  //   // vals.push(item.estDepartureAirport);
-  //   flight01 = item.estDepartureAirport;
-  //   arrival = item.estArrivalAirport;
-  //   firstSeen = item.firstSeen;
-  // }
-
-  states.map((item, key) => {
-    // flight01 = element.estDepartureAirport;
-    // arrival = element.estArrivalAirport;
-    // firstSeen = element.firstSeen;
-    return (flight01 = <Typographyl key={item.firstSeen} item={item} />);
-  });
-
-  // let rows = vals.length;
-  // for (let i = 0; i < rows; i++) {
-  //   let items = vals[i];
-  //   console.log(items);
-
-  //   flight01 = items;
-  // }
-
-  // console.log(vals);
-
-  // states.map(flight => {
-  //   return (flight01 = (
-  //     <div>
-  //       <Typography gutterBottom key={flight.firstSeen}>
-  //         <Button color="primary" variant="contained">
-  //           Estimated Departure airport{" "}
-  //         </Button>
-  //         {flight.estDepartureAirport}
-  //       </Typography>
-  //       <Typography gutterBottom>
-  //         {" "}
-  //         <Button color="primary" variant="contained">
-  //           Estimated Arrival airport:
-  //         </Button>
-  //         {flight.estArrivalAirport}
-  //       </Typography>
-  //       <Typography>
-  //         <Button color="primary" variant="contained">
-  //           Estimated Number of near-by Airports
-  //         </Button>
-  //         {flight.departureAirportCandidatesCount}
-  //       </Typography>
-  //     </div>
-  //   ));
-  // });
   return (
     <div>
       <div className="container">
         <List className={classes.root}>
-          <ListItem
-            onClick={handleClickOpen}
-            style={{ cursor: "pointer" }}
-            className="list"
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <FlightIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Atalanta" />
-          </ListItem>
-          <ListItem
-            onClick={handleClickOpen}
-            style={{ cursor: "pointer" }}
-            className="list"
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <FlightIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="New York LGA" />
-          </ListItem>
-          <ListItem
-            onClick={handleClickOpen}
-            style={{ cursor: "pointer" }}
-            className="list"
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <FlightIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Amsterdam" />
-          </ListItem>
-          <ListItem
-            onClick={handleClickOpen}
-            style={{ cursor: "pointer" }}
-            className="list"
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <FlightIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="London" />
-          </ListItem>
+          <div onClick={() => handleClickOpen("atl")}>
+            <ListItem style={{ cursor: "pointer" }} className="list">
+              <ListItemAvatar>
+                <Avatar>
+                  <FlightIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Atalanta" />
+            </ListItem>
+          </div>
+          <div onClick={() => handleClickOpen("new")}>
+            <ListItem style={{ cursor: "pointer" }} className="list">
+              <ListItemAvatar>
+                <Avatar>
+                  <FlightIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="New York LGA" />
+            </ListItem>
+          </div>
+          <div onClick={() => handleClickOpen("ams")}>
+            <ListItem
+              // onClick={handleClickOpen}
+              style={{ cursor: "pointer" }}
+              className="list"
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <FlightIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Amsterdam" />
+            </ListItem>
+          </div>
+          <div onClick={() => handleClickOpen("lon")}>
+            <ListItem
+              // onClick={handleClickOpen}
+              style={{ cursor: "pointer" }}
+              className="list"
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <FlightIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="London" />
+            </ListItem>
+          </div>
         </List>
       </div>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Flights Info
-        </DialogTitle>
-        <DialogContent dividers>
-          {flight01}
-          {/* <Typography gutterBottom>
-            <Button color="primary" variant="contained">
-              Estimated Departure airport{" "}
+      {open && (
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+        >
+          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+            Flights Info {}
+          </DialogTitle>
+          <DialogContent dividers>
+            <Typographyl item={item} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              close
             </Button>
-            {flight01}
-          </Typography> */}
-          {/* <Typography gutterBottom>
-            <Button color="primary" variant="contained">
-              Estimated Arrival airport{" "}
-            </Button>
-            {arrival}
-          </Typography>
-          <Typography gutterBottom>
-            <Button color="primary" variant="contained">
-              Date first Seen{" "}
-            </Button>
-            {firstSeen}
-          </Typography> */}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            close
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </DialogActions>
+        </Dialog>
+      )}
     </div>
   );
 }
