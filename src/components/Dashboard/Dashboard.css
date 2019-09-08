@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Livvic&display=swap");
+
+.container {
+  max-width: 1180px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 3rem;
+  font-family: "Livvic", sans-serif;
+}
+
+.list:hover {
+  background: #999;
+}
+
+.mid {
+  margin: 0 auto;
+}
