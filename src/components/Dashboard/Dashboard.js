@@ -8,15 +8,18 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import FlightIcon from "@material-ui/icons/Flight";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import CardMedia from "@material-ui/core/CardMedia";
 import Typographyl from "./Typograpy";
 import axios from "axios";
 import "./Dashboard.css";
+import pl from "./aeroplane-aircraft-aircraft-wing-723240(1).jpg";
+import am from "./aeroplane-aircraft-airline-912050.jpg";
+import lo from "./aeroplanes-aircraft-airline-163792.jpg";
+import te from "./airport-architectural-design-architecture-2610756.jpg";
 //import { minHeight } from "@material-ui/system";
 
 const styles = theme => ({
@@ -33,12 +36,17 @@ const styles = theme => ({
   }
 });
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper
+const useStyles = makeStyles({
+  card: {
+    maxWidth: 350
+  },
+  media: {
+    height: 250
+  },
+  body: {
+    color: 500
   }
-}));
+});
 
 const DialogTitle = withStyles(styles)(props => {
   const { children, classes, onClose } = props;
@@ -129,67 +137,110 @@ function Dashboard() {
   return (
     <div>
       <div className="container">
-        <List className={classes.root}>
-          <div onClick={() => handleClickOpen("atl")}>
-            <ListItem style={{ cursor: "pointer" }} className="list">
-              <ListItemAvatar>
-                <Avatar>
-                  <FlightIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Atalanta" />
-            </ListItem>
-          </div>
-          <div onClick={() => handleClickOpen("new")}>
-            <ListItem style={{ cursor: "pointer" }} className="list">
-              <ListItemAvatar>
-                <Avatar>
-                  <FlightIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="New York LGA" />
-            </ListItem>
-          </div>
-          <div onClick={() => handleClickOpen("ams")}>
-            <ListItem
-              // onClick={handleClickOpen}
-              style={{ cursor: "pointer" }}
-              className="list"
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <FlightIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Amsterdam" />
-            </ListItem>
-          </div>
-          <div onClick={() => handleClickOpen("lon")}>
-            <ListItem
-              // onClick={handleClickOpen}
-              style={{ cursor: "pointer" }}
-              className="list"
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <FlightIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="London" />
-            </ListItem>
-          </div>
-        </List>
+        <Grid container spacing={3}>
+          <Grid item xs>
+            <div>
+              <Card
+                className={classes.card}
+                onClick={() => handleClickOpen("atl")}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={pl}
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Atalanta
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
+          </Grid>
+
+          <Grid item xs>
+            <div>
+              <Card
+                className={classes.card}
+                onClick={() => handleClickOpen("new")}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={am}
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      New York
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
+          </Grid>
+          <Grid item xs>
+            <div>
+              <Card
+                className={classes.card}
+                onClick={() => handleClickOpen("ams")}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={te}
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Amsterdam
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
+          </Grid>
+          <Grid item xs>
+            <div>
+              <Card
+                className={classes.card}
+                onClick={() => handleClickOpen("lon")}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={lo}
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      London
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
+          </Grid>
+        </Grid>
       </div>
+
       {open && (
         <Dialog
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
+          aria-describedby="alert-dialog-description"
           open={open}
         >
-          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          <DialogTitle
+            id="customized-dialog-title"
+            onClose={handleClose}
+            className="heading"
+          >
             Flights Info {}
           </DialogTitle>
-          <DialogContent dividers>
+          <DialogContent dividers className={classes.body}>
             <Typographyl item={item} />
           </DialogContent>
           <DialogActions>
